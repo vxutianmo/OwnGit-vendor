@@ -18,7 +18,10 @@ vue2 + vuex + vue-router + webpack + ES6/7 + fetch + axios + sass + flex + svg
 #### 注意：由于涉及大量的 ES6/7 等新属性，node 需要 6.0 以上版本
 
 ```
+git clone git@github.com:vxutianmo/OwnGit-vendor.git
 
+cd src/main/vue
+ 
 npm install 或 yarn(推荐)
 
 npm run dev
@@ -52,40 +55,28 @@ npm run dev
 # 部分截图
 
 
-### 商铺列表页
+### 设备列表页
 
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/msite.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/msite.gif" width="365" height="619"/>
-
-
-### 商铺筛选页
-
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/food.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/food.gif" width="365" height="619"/>
+<img src="https://github.com/vxutianmo/OwnGit-vendor/blob/master/src/main/vue/screenshots/address.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/msite.gif" width="365" height="619"/>
 
 
+### 商品筛选页
 
-### 餐馆食品列表与购物车
-
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/shop_cart.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/shop_cart.gif" width="365" height="619"/>
-
-### 确认订单页
-
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/confirm1.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/confirmOrder.gif" width="365" height="619"/>
+<img src="https://github.com/vxutianmo/OwnGit-vendor/blob/master/src/main/vue/screenshots/goods.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/shop_cart.gif" width="365" height="619"/>
 
 
-### 搜索页
+### 购物车
 
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/search.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/search.gif" width="365" height="619"/>
+<img src="https://github.com/vxutianmo/OwnGit-vendor/blob/master/src/main/vue/screenshots/cart.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/food.gif" width="365" height="619"/>
+
+### 订单页
+
+<img src="https://github.com/vxutianmo/OwnGit-vendor/blob/master/src/main/vue/screenshots/order.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/confirmOrder.gif" width="365" height="619"/>
 
 
-### 登录页
+###订单详情页
 
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/login1.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/login.gif" width="365" height="619"/>
-
-
-### 个人中心
-
-<img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/profile.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/profile.gif" width="365" height="619"/>
-
+<img src="https://github.com/vxutianmo/OwnGit-vendor/blob/master/src/main/vue/screenshots/orderDetail.png" width="365" height="619"/> <img src="https://github.com/bailicangdu/vue2-elm/blob/master/screenshots/search.gif" width="365" height="619"/>
 
 
 
@@ -97,7 +88,7 @@ npm run dev
 .
 ├── build                                       // webpack配置文件
 ├── config                                      // 项目打包路径
-├── elm                                         // 上线项目文件，放在服务器即可正常访问
+├── runhang                                     // 上线项目文件，放在服务器即可正常访问
 ├── screenshots                                 // 项目截图
 ├── src                                         // 源码目录
 │   ├── components                              // 组件
@@ -120,84 +111,24 @@ npm run dev
 │   │   └── rem.js                              // px转换rem
 │   ├── images                                  // 公共图片
 │   ├── page
-│   │   ├── balance
-│   │   │   ├── balance.vue                     // 余额页
-│   │   │   └── children
-│   │   │       └── detail.vue                  // 余额说明
-│   │   ├── benefit
-│   │   │   ├── benefit.vue                     // 红包页
-│   │   │   └── children
-│   │   │       ├── commend.vue                 // 推荐有奖
-│   │   │       ├── coupon.vue                  // 代金券说明
-│   │   │       ├── exchange.vue                // 兑换红包
-│   │   │       ├── hbDescription.vue           // 红包说明
-│   │   │       └── hbHistory.vue               // 历史红包
-│   │   ├── city
-│   │   │   └── city.vue                        // 当前城市页
-│   │   ├── confirmOrder
+│   │   ├── cart
 │   │   │   ├── children
-│   │   │   │   ├── children
-│   │   │   │   │   ├── addAddress.vue          // 添加地址页
-│   │   │   │   │   └── children
-│   │   │   │   │       └── searchAddress.vue   // 搜索地址页
-│   │   │   │   ├── chooseAddress.vue           // 选择地址页
-│   │   │   │   ├── invoice.vue                 // 选择发票页
-│   │   │   │   ├── payment.vue                 // 付款页
-│   │   │   │   ├── remark.vue                  // 订单备注页
-│   │   │   │   └── userValidation.vue          // 用户验证页
-│   │   │   └── confirmOrder.vue                // 确认订单页
-│   │   ├── download
-│   │   │   └── download.vue                    // 下载App
-│   │   ├── find
-│   │   │   └── find.vue                        // 发现页
-│   │   ├── food
-│   │   │   └── food.vue                        // 食品筛选排序页
-│   │   ├── forget
-│   │   │   └── forget.vue                      // 忘记密码，修改密码页
-│   │   ├── home
-│   │   │   └── home.vue                        // 首页
-│   │   ├── login
-│   │   │   └── login.vue                       // 登录注册页
-│   │   ├── msite
-│   │   │   └── msite.vue                       // 商铺列表页
+│   │   │   │   └── pay.vue                  // 支付页面
+│   │   │   └── cart.vue                       // 购物车页
+│   │   ├── classify
+│   │   │   └── classify.vue                    // 商品分类页
+│   │   ├── error
+│   │   │   └── error404.vue                    // 错误页
 │   │   ├── order
 │   │   │   ├── children
 │   │   │   │   └── orderDetail.vue             // 订单详情页
 │   │   │   └── order.vue                       // 订单列表页
-│   │   ├── points
-│   │   │   ├── children
-│   │   │   │   └── detail.vue                  // 积分说明
-│   │   │   └── points.vue                      // 积分页
-│   │   ├── profile
-│   │   │   ├── children
-│   │   │   │   ├── children
-│   │   │   │   │   ├── address.vue             // 地址
-│   │   │   │   │   └── children
-│   │   │   │   │       ├── add.vue             // 新增地址
-│   │   │   │   │       └── children
-│   │   │   │   │           └── addDetail.vue   // 搜索地址
-│   │   │   │   ├── info.vue                    // 帐户信息
-│   │   │   │   └── setusername.vue             // 重置用户名
-│   │   │   └── profile.vue                     // 个人中心
-│   │   ├── search
-│   │   │   └── search.vue                      // 搜索页
-│   │   ├── service
-│   │   │   ├── children
-│   │   │   │   └── questionDetail.vue          // 问题详情
-│   │   │   └── service.vue                     // 服务中心
-│   │   ├── shop
-│   │   │   ├── children
-│   │   │   │   ├── children
-│   │   │   │   │   └── shopSafe.vue            // 商铺认证信息页
-│   │   │   │   ├── foodDetail.vue              // 商铺信息页
-│   │   │   │   └── shopDetail.vue              // 单个商铺信息页
-│   │   │   └── shop.vue                        // 商铺筛选页
-│   │   └── vipcard
-│   │       ├── children
-│   │       │   ├── invoiceRecord.vue           // 购买记录
-│   │       │   ├── useCart.vue                 // 使用卡号购买
-│   │       │   └── vipDescription.vue          // 会员说明
-│   │       └── vipcard.vue                     // 会员卡办理页
+│   │   ├── vendings
+│   │   │   └── vendings.vue                      // 设备页面
+│   │   ├── wxAuth
+│   │   │   └── wxAuth.vue                      // 微信授权页面
+│   │   ├── wxPay
+│   │   │   └── wxPay.vue                      // 微信支付页面
 │   ├── plugins                                 // 引用的插件
 │   ├── router
 │   │   └── router.js                           // 路由配置
@@ -221,9 +152,8 @@ npm run dev
 ├── index.html                                  // 入口html文件
 .
 
-56 directories, 203 files
+
 ```
 
 # License
 
-[GPL](https://github.com/bailicangdu/vue2-elm/blob/master/COPYING)
