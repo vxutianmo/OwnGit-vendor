@@ -1,13 +1,6 @@
 # 前言
-src config env.js   baseUrl    接口 src service getData.js
-build dev-server.js 中 local和online    proxypath修改
-src store index.js 存放数据，用的时候引用 import {mapState, mapMutations} from 'vuex'
 
-
-轮播 swipe
-
-
-设备显示 商品展示  加入购物车 购买 订单列表 
+本人仅仅完成前端代码，后端是可爱的同事完成的，前端运用vue全家桶，后端是Java
 
 ## 技术栈
 
@@ -49,8 +42,6 @@ npm run dev
 - [x] 订单列表 -- 完成
 - [x] 订单详情 -- 完成
 - [x] 付款 -- 完成
-
-
 
 
 # 部分截图
@@ -155,3 +146,13 @@ npm run dev
 
 
 ```
+
+src config env.js   baseUrl    接口 src service getData.js
+build dev-server.js 中 local和online    proxypath修改
+src store index.js 存放数据，用的时候引用 import {mapState, mapMutations} from 'vuex'
+
+
+轮播 swipe
+
+
+设备显示 商品展示  加入购物车 购买 订单列表 
