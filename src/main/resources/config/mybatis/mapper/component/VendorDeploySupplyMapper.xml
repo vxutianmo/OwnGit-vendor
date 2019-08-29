@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.VendorDeploySupplyMapper" >
+  <select id="selectReplenisherByDeployId" parameterType="java.lang.Integer"
+          resultType="com.runhang.sell.model.VendorDeploySupply">
+        SELECT
+            avds.replenisher_id as id,
+            api.name,
+            api.cell_phone as phone
+        FROM
+            am_vendor_deploy_supply avds
+        JOIN am_replenisher ar ON avds.replenisher_id = ar.id
+        JOIN am_person_info api ON ar.info_id = api.id
+        WHERE
+          avds.deleted = 0
+          AND avds.deploy_id = #{deployId}
+    </select>
+</mapper>

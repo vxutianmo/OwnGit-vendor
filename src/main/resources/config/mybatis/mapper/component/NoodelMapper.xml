@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.NoodleMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.Noodle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="no_code" property="noCode" jdbcType="VARCHAR" />
+    <result column="no_status" property="noStatus" jdbcType="INTEGER" />
+    <result column="no_data1" property="noData1" jdbcType="VARCHAR" />
+    <result column="no_data2" property="noData2" jdbcType="VARCHAR" />
+    <result column="no_data3" property="noData3" jdbcType="VARCHAR" />
+    <result column="reach_time" property="reachTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, no_code,no_status, no_data1, no_data2, no_data3, reach_time,deleted
+  </sql>
+  <insert id="insert" parameterType="com.runhang.sell.model.Noodle" >
+       INSERT INTO
+       		am_noodle_data
+       		(no_code,no_status,no_data1,no_data2,no_data3,reach_time)
+       	VALUES
+       		(#{noCode},#{noStatus}, #{noData1}, #{noData2}, #{noData3}, #{reachTime})
+    </insert>
+
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.WechatJsOrderMapper">
+    <resultMap id="OrderResultMap" type="com.runhang.sell.model.OrderResult" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+        <result column="pay_order_code" property="payOrderCode" jdbcType="VARCHAR" />
+        <result column="order_start_time" property="orderStartTime" jdbcType="TIMESTAMP" />
+        <result column="order_end_time" property="orderEndTime" jdbcType="TIMESTAMP" />
+        <result column="order_detail" property="orderDetail" jdbcType="VARCHAR" />
+        <result column="order_total" property="orderTotal" jdbcType="BIGINT" />
+        <result column="discount_amount" property="discountAmount" jdbcType="BIGINT" />
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+        <result column="pay_amount" property="payAmount" jdbcType="BIGINT" />
+        <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+        <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+        <result column="pay_start_time" property="payStartTime" jdbcType="TIMESTAMP" />
+        <result column="pay_end_time" property="payEndTime" jdbcType="TIMESTAMP" />
+        <result column="vd_id" property="vdId" jdbcType="INTEGER" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="pickup_code" property="pickupCode" jdbcType="VARCHAR" />
+        <result column="add_points" property="addPoints" jdbcType="INTEGER" />
+        <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+        <result column="ms_id" property="msId" jdbcType="INTEGER" />
+        <result column="is_evaluation" property="isEvaluation" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="selectOrderByOpenId" resultMap="OrderResultMap">
+        SELECT DISTINCT
+            ao.id,
+            ao.order_code,
+            ao.pay_order_code,
+            ao.order_start_time,
+            ao.order_detail,
+            ao.order_total,
+            ao.discount_amount,
+            ao.order_status,
+            ao.pay_amount,
+            ao.pay_status,
+            ao.pay_type,
+            ao.pay_start_time,
+            ao.pay_end_time,
+            ao.vd_id,
+            ao.description,
+            ao.pickup_code,
+            ao.add_points,
+            ao.order_type,
+            ao.ms_id,
+            ao.is_evaluation,
+            ao.create_time,
+            ao.update_time,
+            ao.deleted,
+            ao.order_end_time
+        FROM
+            am_order AS ao
+            INNER JOIN am_wechat_js_order AS awo ON awo.order_id = ao.id and awo.deleted = 0
+            INNER JOIN am_account AS aa ON aa.order_id = ao.id and aa.deleted = 0
+        WHERE
+          awo.open_id = #{openId,jdbcType=VARCHAR} AND aa.business_id = #{businessId,jdbcType=INTEGER}
+          AND ao.vd_id = #{deployId,jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="GoodsCompleteMap" type="com.runhang.sell.model.GoodsCompleted">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="busId" property="busId" jdbcType="INTEGER"/>
+        <result column="brandId" property="brandId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="pack" property="pack" jdbcType="VARCHAR"/>
+        <result column="barCode" property="barCode" jdbcType="VARCHAR"/>
+        <result column="produced_date" property="producedDate" jdbcType="TIMESTAMP" />
+        <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+        <result column="expirePeriod" property="expirePeriod" jdbcType="DECIMAL"/>
+        <result column="imageId" property="imageId" jdbcType="INTEGER"/>
+        <result column="spec" property="spec" jdbcType="INTEGER" />
+        <result column="spec_unit" property="specUnit" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="BIGINT" />
+        <result column="length" property="length" jdbcType="INTEGER"/>
+        <result column="width" property="width" jdbcType="INTEGER"/>
+        <result column="height" property="height" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="categoryId" property="categoryId" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
+        <result column="detail" property="description" jdbcType="VARCHAR" />
+        <result column="imageUrl" property="imageUrl" jdbcType="VARCHAR" />
+        <association property="goodsBrand" javaType="com.runhang.sell.model.GoodsBrand">
+            <id column="brandId" property="id" jdbcType="INTEGER" />
+            <result column="brandName" property="name" jdbcType="VARCHAR" />
+            <result column="cls" property="classs" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <select id="selectGoodsComplete" resultMap="GoodsCompleteMap">
+        select
+        g.id as id,
+        g.brand_id as brandId,
+        g.name as name,
+        g.code as code,
+        g.pack as pack,
+        g.bar_code as barCode,
+        g.produced_date,
+        g.expiration_date,
+        g.expire_period as expirePeriod,
+        g.image_id as imageId,
+        g.spec as spec,
+        g.spec_unit,
+        g.price as price,
+        g.length as length,
+        g.width as width,
+        g.height as height,
+        g.create_time as createTime,
+        g.category_id as categoryId,
+        g.description as detail,
+        b.name as brandName,
+        g.bus_id as busId,
+        b.class as cls,
+        e.description as description,
+        f.file_path as imageUrl
+        from am_goods g
+        INNER JOIN am_goods_brand b ON g.brand_id = b.id and b.deleted = 0
+        LEFT OUTER JOIN cm_enumeration e ON b.class = e.code and e.deleted = 0
+        LEFT OUTER JOIN cm_file f ON f.id = g.image_id and f.deleted = 0
+        where  g.deleted = 0
+        <if test="id != null">
+            and g.id like  #{id}
+        </if>
+    </select>
+</mapper>

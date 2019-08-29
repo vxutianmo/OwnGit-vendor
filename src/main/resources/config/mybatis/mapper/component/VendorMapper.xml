@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.VendorMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.Vendor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vd_code" property="vdCode" jdbcType="VARCHAR" />
+    <result column="vd_type" property="vdType" jdbcType="VARCHAR" />
+    <result column="manufacturer_id" property="manufacturerId" jdbcType="INTEGER" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="track_num" property="trackNum" jdbcType="INTEGER" />
+    <result column="low_temp" property="lowTemp" jdbcType="INTEGER" />
+    <result column="high_temp" property="highTemp" jdbcType="INTEGER" />
+    <result column="vd_status" property="vdStatus" jdbcType="VARCHAR" />
+    <result column="reach_time" property="reachTime" jdbcType="DATE" />
+    <result column="photo" property="photo" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="vd_name" property="vdName" jdbcType="VARCHAR" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="sell_type" property="sellType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vd_code, vd_type, manufacturer_id, product_code, track_num, low_temp, high_temp,
+    vd_status, reach_time, photo, description, create_time, update_time, deleted, vd_name,
+    serial_number, sell_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.runhang.sell.model.VendorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_vendor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from am_vendor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_vendor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.VendorExample" >
+    delete from am_vendor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.Vendor" useGeneratedKeys="true" keyProperty="id">
+    insert into am_vendor (id, vd_code, vd_type,
+      manufacturer_id, product_code, track_num,
+      low_temp, high_temp, vd_status, 
+      reach_time, photo, description,
+      create_time, update_time, deleted,
+      vd_name, serial_number, sell_type
+      )
+    values (#{id,jdbcType=INTEGER}, #{vdCode,jdbcType=VARCHAR}, #{vdType,jdbcType=VARCHAR}, 
+      #{manufacturerId,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{trackNum,jdbcType=INTEGER},
+      #{lowTemp,jdbcType=INTEGER}, #{highTemp,jdbcType=INTEGER}, #{vdStatus,jdbcType=VARCHAR}, 
+      #{reachTime,jdbcType=DATE}, #{photo,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER},
+      #{vdName,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{sellType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.Vendor" >
+    insert into am_vendor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vdCode != null" >
+        vd_code,
+      </if>
+      <if test="vdType != null" >
+        vd_type,
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="trackNum != null" >
+        track_num,
+      </if>
+      <if test="lowTemp != null" >
+        low_temp,
+      </if>
+      <if test="highTemp != null" >
+        high_temp,
+      </if>
+      <if test="vdStatus != null" >
+        vd_status,
+      </if>
+      <if test="reachTime != null" >
+        reach_time,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="vdName != null" >
+        vd_name,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="sellType != null" >
+        sell_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vdCode != null" >
+        #{vdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vdType != null" >
+        #{vdType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        #{manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trackNum != null" >
+        #{trackNum,jdbcType=INTEGER},
+      </if>
+      <if test="lowTemp != null" >
+        #{lowTemp,jdbcType=INTEGER},
+      </if>
+      <if test="highTemp != null" >
+        #{highTemp,jdbcType=INTEGER},
+      </if>
+      <if test="vdStatus != null" >
+        #{vdStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reachTime != null" >
+        #{reachTime,jdbcType=DATE},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="vdName != null" >
+        #{vdName,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        #{sellType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.VendorExample" resultType="java.lang.Integer" >
+    select count(*) from am_vendor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_vendor
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdCode != null" >
+        vd_code = #{record.vdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vdType != null" >
+        vd_type = #{record.vdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturerId != null" >
+        manufacturer_id = #{record.manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null" >
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackNum != null" >
+        track_num = #{record.trackNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.lowTemp != null" >
+        low_temp = #{record.lowTemp,jdbcType=INTEGER},
+      </if>
+      <if test="record.highTemp != null" >
+        high_temp = #{record.highTemp,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdStatus != null" >
+        vd_status = #{record.vdStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reachTime != null" >
+        reach_time = #{record.reachTime,jdbcType=DATE},
+      </if>
+      <if test="record.photo != null" >
+        photo = #{record.photo,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdName != null" >
+        vd_name = #{record.vdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNumber != null" >
+        serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellType != null" >
+        sell_type = #{record.sellType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_vendor
+    set id = #{record.id,jdbcType=INTEGER},
+      vd_code = #{record.vdCode,jdbcType=VARCHAR},
+      vd_type = #{record.vdType,jdbcType=VARCHAR},
+      manufacturer_id = #{record.manufacturerId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      track_num = #{record.trackNum,jdbcType=INTEGER},
+      low_temp = #{record.lowTemp,jdbcType=INTEGER},
+      high_temp = #{record.highTemp,jdbcType=INTEGER},
+      vd_status = #{record.vdStatus,jdbcType=VARCHAR},
+      reach_time = #{record.reachTime,jdbcType=DATE},
+      photo = #{record.photo,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      vd_name = #{record.vdName,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      sell_type = #{record.sellType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.Vendor" >
+    update am_vendor
+    <set >
+      <if test="vdCode != null" >
+        vd_code = #{vdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vdType != null" >
+        vd_type = #{vdType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id = #{manufacturerId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="trackNum != null" >
+        track_num = #{trackNum,jdbcType=INTEGER},
+      </if>
+      <if test="lowTemp != null" >
+        low_temp = #{lowTemp,jdbcType=INTEGER},
+      </if>
+      <if test="highTemp != null" >
+        high_temp = #{highTemp,jdbcType=INTEGER},
+      </if>
+      <if test="vdStatus != null" >
+        vd_status = #{vdStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reachTime != null" >
+        reach_time = #{reachTime,jdbcType=DATE},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="vdName != null" >
+        vd_name = #{vdName,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        sell_type = #{sellType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.Vendor" >
+    update am_vendor
+    set vd_code = #{vdCode,jdbcType=VARCHAR},
+      vd_type = #{vdType,jdbcType=VARCHAR},
+      manufacturer_id = #{manufacturerId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      track_num = #{trackNum,jdbcType=INTEGER},
+      low_temp = #{lowTemp,jdbcType=INTEGER},
+      high_temp = #{highTemp,jdbcType=INTEGER},
+      vd_status = #{vdStatus,jdbcType=VARCHAR},
+      reach_time = #{reachTime,jdbcType=DATE},
+      photo = #{photo,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      vd_name = #{vdName,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      sell_type = #{sellType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllTypeByManufacturerId" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select vd_type from am_vendor where manufacturer_id = #{manufacturerId} and deleted = 0
+  </select>
+  <update id="updateTrackNumByVdCode" parameterType="com.runhang.sell.model.Vendor">
+    update am_vendor set track_num = #{trackNum,jdbcType=INTEGER} where vd_code = #{vdCode,jdbcType=VARCHAR}
+  </update>
+  <select id="getVdcodeById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select vd_code from am_vendor where id = #{id} and deleted = 0
+  </select>
+  <select id="getVdCodeAll" resultType="java.lang.String">
+    select vd_code from  am_vendor where deleted = 0
+  </select>
+  <select id="getvdCodeNotOffline" resultType="java.lang.String">
+    SELECT ven.vd_code FROM am_vendor as ven JOIN am_vendor_deploy as vd ON ven.id = vd.vd_id where ven.deleted = 0 and vd.deleted = 0 and vd.`status` != 3
+  </select>
+  <select id="getIdByVdCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id from am_vendor where vd_code = #{vdCode} and deleted = 0
+  </select>
+  <select id="getDeviceNumberByVdCode" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT device_number FROM am_vendor where deleted = 0 and vd_code = #{vdCode}
+  </select>
+</mapper>

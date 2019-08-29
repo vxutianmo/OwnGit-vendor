@@ -1,0 +1,32 @@
+#端口号
+server:
+  port: 9069
+#日志
+logging:
+  config: classpath:logback-spring.xml
+#spring基础配置
+spring:
+  profiles:
+    active: prod
+  application:
+    name: sell-service
+  cloud:
+      config:
+        label: master
+        profile: prod
+        discovery:
+          enabled: true
+          serviceId: config-server
+#微服务基础配置
+eureka:
+  instance:
+    preferIpAddress: true
+    health-check-url-path: /actuator/health
+    status-page-url: http://${spring.cloud.client.hostname}:${server.port}/monitoring
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    registry-fetch-interval-seconds: 20
+    eureka-server-connect-timeout-seconds: 5
+    service-url:
+       defaultZone: http://192.168.0.81:8701/eureka/,http://192.168.0.82:8701/eureka/,http://192.168.0.83:8701/eureka/

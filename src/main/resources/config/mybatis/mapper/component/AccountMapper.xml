@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="track_id" property="trackId" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="sub_business_id" property="subBusinessId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
+    <result column="single_price" property="singlePrice" jdbcType="BIGINT" />
+    <result column="total_price" property="totalPrice" jdbcType="BIGINT" />
+    <result column="platform_price" property="platformPrice" jdbcType="BIGINT" />
+    <result column="business_price" property="businessPrice" jdbcType="BIGINT" />
+    <result column="sub_business_price" property="subBusinessPrice" jdbcType="BIGINT" />
+    <result column="service_price" property="servicePrice" jdbcType="BIGINT" />
+    <result column="business_service_price" property="businessServicePrice" jdbcType="BIGINT" />
+    <result column="sub_business_service_price" property="subBusinessServicePrice" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+      <result column="goodsCode" property="goodsCode" jdbcType="VARCHAR"/>
+      <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+      <result column="goodsUrl" property="goodsUrl" jdbcType="VARCHAR"/>
+      <result column="trackCode" property="trackCode" jdbcType="VARCHAR"/>
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, goods_id, track_id, business_id, sub_business_id, order_id, goods_number, single_price, 
+    total_price, platform_price, business_price, sub_business_price, service_price, business_service_price, 
+    sub_business_service_price, create_time, update_time, deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.runhang.sell.model.AccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from am_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.AccountExample" >
+    delete from am_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.Account" >
+    insert into am_account (id, goods_id, track_id, 
+      business_id, sub_business_id, order_id, 
+      goods_number, single_price, total_price, 
+      platform_price, business_price, sub_business_price, 
+      service_price, business_service_price, sub_business_service_price, 
+      create_time, update_time, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{trackId,jdbcType=INTEGER}, 
+      #{businessId,jdbcType=INTEGER}, #{subBusinessId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{goodsNumber,jdbcType=INTEGER}, #{singlePrice,jdbcType=BIGINT}, #{totalPrice,jdbcType=BIGINT}, 
+      #{platformPrice,jdbcType=BIGINT}, #{businessPrice,jdbcType=BIGINT}, #{subBusinessPrice,jdbcType=BIGINT}, 
+      #{servicePrice,jdbcType=BIGINT}, #{businessServicePrice,jdbcType=BIGINT}, #{subBusinessServicePrice,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.Account" >
+    <selectKey resultType="int" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into am_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="trackId != null" >
+        track_id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="subBusinessId != null" >
+        sub_business_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number,
+      </if>
+      <if test="singlePrice != null" >
+        single_price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="platformPrice != null" >
+        platform_price,
+      </if>
+      <if test="businessPrice != null" >
+        business_price,
+      </if>
+      <if test="subBusinessPrice != null" >
+        sub_business_price,
+      </if>
+      <if test="servicePrice != null" >
+        service_price,
+      </if>
+      <if test="businessServicePrice != null" >
+        business_service_price,
+      </if>
+      <if test="subBusinessServicePrice != null" >
+        sub_business_service_price,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="trackId != null" >
+        #{trackId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="subBusinessId != null" >
+        #{subBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNumber != null" >
+        #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="singlePrice != null" >
+        #{singlePrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="platformPrice != null" >
+        #{platformPrice,jdbcType=BIGINT},
+      </if>
+      <if test="businessPrice != null" >
+        #{businessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="subBusinessPrice != null" >
+        #{subBusinessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="servicePrice != null" >
+        #{servicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="businessServicePrice != null" >
+        #{businessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="subBusinessServicePrice != null" >
+        #{subBusinessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.AccountExample" resultType="java.lang.Integer" >
+    select count(*) from am_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_account
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.trackId != null" >
+        track_id = #{record.trackId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subBusinessId != null" >
+        sub_business_id = #{record.subBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsNumber != null" >
+        goods_number = #{record.goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.singlePrice != null" >
+        single_price = #{record.singlePrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalPrice != null" >
+        total_price = #{record.totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.platformPrice != null" >
+        platform_price = #{record.platformPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.businessPrice != null" >
+        business_price = #{record.businessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.subBusinessPrice != null" >
+        sub_business_price = #{record.subBusinessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.servicePrice != null" >
+        service_price = #{record.servicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.businessServicePrice != null" >
+        business_service_price = #{record.businessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.subBusinessServicePrice != null" >
+        sub_business_service_price = #{record.subBusinessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_account
+    set id = #{record.id,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      track_id = #{record.trackId,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      sub_business_id = #{record.subBusinessId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      goods_number = #{record.goodsNumber,jdbcType=INTEGER},
+      single_price = #{record.singlePrice,jdbcType=BIGINT},
+      total_price = #{record.totalPrice,jdbcType=BIGINT},
+      platform_price = #{record.platformPrice,jdbcType=BIGINT},
+      business_price = #{record.businessPrice,jdbcType=BIGINT},
+      sub_business_price = #{record.subBusinessPrice,jdbcType=BIGINT},
+      service_price = #{record.servicePrice,jdbcType=BIGINT},
+      business_service_price = #{record.businessServicePrice,jdbcType=BIGINT},
+      sub_business_service_price = #{record.subBusinessServicePrice,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.Account" >
+    update am_account
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="trackId != null" >
+        track_id = #{trackId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="subBusinessId != null" >
+        sub_business_id = #{subBusinessId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNumber != null" >
+        goods_number = #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="singlePrice != null" >
+        single_price = #{singlePrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="platformPrice != null" >
+        platform_price = #{platformPrice,jdbcType=BIGINT},
+      </if>
+      <if test="businessPrice != null" >
+        business_price = #{businessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="subBusinessPrice != null" >
+        sub_business_price = #{subBusinessPrice,jdbcType=BIGINT},
+      </if>
+      <if test="servicePrice != null" >
+        service_price = #{servicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="businessServicePrice != null" >
+        business_service_price = #{businessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="subBusinessServicePrice != null" >
+        sub_business_service_price = #{subBusinessServicePrice,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.Account" >
+    update am_account
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      track_id = #{trackId,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
+      sub_business_id = #{subBusinessId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      single_price = #{singlePrice,jdbcType=BIGINT},
+      total_price = #{totalPrice,jdbcType=BIGINT},
+      platform_price = #{platformPrice,jdbcType=BIGINT},
+      business_price = #{businessPrice,jdbcType=BIGINT},
+      sub_business_price = #{subBusinessPrice,jdbcType=BIGINT},
+      service_price = #{servicePrice,jdbcType=BIGINT},
+      business_service_price = #{businessServicePrice,jdbcType=BIGINT},
+      sub_business_service_price = #{subBusinessServicePrice,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAccountTrackGoodsMsgByOrderId" resultMap="BaseResultMap" >
+      select
+
+      aa.id as id,
+      aa.goods_id,
+      aa.track_id,
+      aa.business_id,
+      aa.order_id,
+      aa.goods_number,
+      aa.single_price,
+      aa.total_price,
+
+      avt.track_code as trackCode,
+
+      ag.name as goodsName,
+      ag.code as goodsCode,
+
+      file.file_path as goodsUrl
+
+      from am_account aa
+      left join am_vendor_track_deploy avtd on avtd.id = aa.track_id and avtd.deleted = 0
+      left join am_vendor_track avt on avt.id = avtd.track_id and avt.deleted = 0
+      left join am_goods ag on aa.goods_id = ag.id and ag.deleted = 0
+      left join cm_file file on ag.image_id = file.id and file.deleted = 0
+      where aa.deleted = 0 and aa.order_id = #{orderId}
+  </select>
+</mapper>

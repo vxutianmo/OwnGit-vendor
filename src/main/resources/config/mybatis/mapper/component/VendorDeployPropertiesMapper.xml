@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.VendorDeployPropertiesMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.VendorDeployProperties" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vd_id" property="vdId" jdbcType="INTEGER" />
+    <result column="vendor_key" property="vendorKey" jdbcType="VARCHAR" />
+    <result column="vendor_value" property="vendorValue" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vd_id, vendor_key, vendor_value, description, create_time, update_time, deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.runhang.sell.model.VendorDeployPropertiesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_vendor_deploy_properties
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from am_vendor_deploy_properties
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_vendor_deploy_properties
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.VendorDeployPropertiesExample" >
+    delete from am_vendor_deploy_properties
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.VendorDeployProperties" useGeneratedKeys="true" keyProperty="id" >
+    insert into am_vendor_deploy_properties (vd_id, vendor_key, vendor_value, 
+      description, create_time, update_time, 
+      deleted)
+    values (#{vdId,jdbcType=INTEGER}, #{vendorKey,jdbcType=VARCHAR}, #{vendorValue,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.VendorDeployProperties" useGeneratedKeys="true" keyProperty="id" >
+    insert into am_vendor_deploy_properties
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vdId != null" >
+        vd_id,
+      </if>
+      <if test="vendorKey != null" >
+        vendor_key,
+      </if>
+      <if test="vendorValue != null" >
+        vendor_value,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vdId != null" >
+        #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="vendorKey != null" >
+        #{vendorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorValue != null" >
+        #{vendorValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.VendorDeployPropertiesExample" resultType="java.lang.Integer" >
+    select count(*) from am_vendor_deploy_properties
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_vendor_deploy_properties
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdId != null" >
+        vd_id = #{record.vdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vendorKey != null" >
+        vendor_key = #{record.vendorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendorValue != null" >
+        vendor_value = #{record.vendorValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_vendor_deploy_properties
+    set id = #{record.id,jdbcType=INTEGER},
+      vd_id = #{record.vdId,jdbcType=INTEGER},
+      vendor_key = #{record.vendorKey,jdbcType=VARCHAR},
+      vendor_value = #{record.vendorValue,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.VendorDeployProperties" >
+    update am_vendor_deploy_properties
+    <set >
+      <if test="vdId != null" >
+        vd_id = #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="vendorKey != null" >
+        vendor_key = #{vendorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorValue != null" >
+        vendor_value = #{vendorValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.VendorDeployProperties" >
+    update am_vendor_deploy_properties
+    set vd_id = #{vdId,jdbcType=INTEGER},
+      vendor_key = #{vendorKey,jdbcType=VARCHAR},
+      vendor_value = #{vendorValue,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectLongitudeByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT vendor_value FROM am_vendor_deploy_properties where deleted = 0
+    and vendor_key = 'longitude'
+    and vd_id = #{vdId}
+  </select>
+  <select id="selectLatitudeByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT vendor_value FROM am_vendor_deploy_properties where deleted = 0
+    and vendor_key = 'latitude'
+    and vd_id = #{vdId}
+  </select>
+</mapper>

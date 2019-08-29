@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.VendorTrackDeployMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.VendorTrackDeploy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="deploy_id" property="deployId" jdbcType="INTEGER" />
+    <result column="track_id" property="trackId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="threshold" property="threshold" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="total_count" property="totalCount" jdbcType="INTEGER" />
+    <result column="current_count" property="currentCount" jdbcType="INTEGER" />
+    <result column="warning_count" property="warningCount" jdbcType="INTEGER" />
+    <result column="sale_price" property="salePrice" jdbcType="REAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="propor" property="propor" jdbcType="REAL" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, deploy_id, track_id, goods_id, threshold, business_id, total_count, current_count, 
+    warning_count, sale_price, status, propor, description, create_time, update_time, 
+    deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.runhang.sell.model.VendorTrackDeployExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_vendor_track_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from am_vendor_track_deploy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_vendor_track_deploy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.VendorTrackDeployExample" >
+    delete from am_vendor_track_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.VendorTrackDeploy" useGeneratedKeys="true" keyProperty="id">
+    insert into am_vendor_track_deploy (id, deploy_id, track_id, 
+      goods_id, threshold, business_id, 
+      total_count, current_count, warning_count, 
+      sale_price, status, propor, 
+      description, create_time, update_time, 
+      deleted)
+    values (#{id,jdbcType=INTEGER}, #{deployId,jdbcType=INTEGER}, #{trackId,jdbcType=INTEGER}, 
+      #{goodsId,jdbcType=INTEGER}, #{threshold,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, 
+      #{totalCount,jdbcType=INTEGER}, #{currentCount,jdbcType=INTEGER}, #{warningCount,jdbcType=INTEGER}, 
+      #{salePrice,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{propor,jdbcType=REAL}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.VendorTrackDeploy" useGeneratedKeys="true" keyProperty="id">
+    insert into am_vendor_track_deploy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deployId != null" >
+        deploy_id,
+      </if>
+      <if test="trackId != null" >
+        track_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="threshold != null" >
+        threshold,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="totalCount != null" >
+        total_count,
+      </if>
+      <if test="currentCount != null" >
+        current_count,
+      </if>
+      <if test="warningCount != null" >
+        warning_count,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="propor != null" >
+        propor,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deployId != null" >
+        #{deployId,jdbcType=INTEGER},
+      </if>
+      <if test="trackId != null" >
+        #{trackId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="threshold != null" >
+        #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="currentCount != null" >
+        #{currentCount,jdbcType=INTEGER},
+      </if>
+      <if test="warningCount != null" >
+        #{warningCount,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="propor != null" >
+        #{propor,jdbcType=REAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.VendorTrackDeployExample" resultType="java.lang.Integer" >
+    select count(*) from am_vendor_track_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_vendor_track_deploy
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.deployId != null" >
+        deploy_id = #{record.deployId,jdbcType=INTEGER},
+      </if>
+      <if test="record.trackId != null" >
+        track_id = #{record.trackId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.threshold != null" >
+        threshold = #{record.threshold,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalCount != null" >
+        total_count = #{record.totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentCount != null" >
+        current_count = #{record.currentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.warningCount != null" >
+        warning_count = #{record.warningCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.salePrice != null" >
+        sale_price = #{record.salePrice,jdbcType=REAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.propor != null" >
+        propor = #{record.propor,jdbcType=REAL},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_vendor_track_deploy
+    set id = #{record.id,jdbcType=INTEGER},
+      deploy_id = #{record.deployId,jdbcType=INTEGER},
+      track_id = #{record.trackId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      threshold = #{record.threshold,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      total_count = #{record.totalCount,jdbcType=INTEGER},
+      current_count = #{record.currentCount,jdbcType=INTEGER},
+      warning_count = #{record.warningCount,jdbcType=INTEGER},
+      sale_price = #{record.salePrice,jdbcType=REAL},
+      status = #{record.status,jdbcType=INTEGER},
+      propor = #{record.propor,jdbcType=REAL},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.VendorTrackDeploy" >
+    update am_vendor_track_deploy
+    <set >
+      <if test="deployId != null" >
+        deploy_id = #{deployId,jdbcType=INTEGER},
+      </if>
+      <if test="trackId != null" >
+        track_id = #{trackId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="threshold != null" >
+        threshold = #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="currentCount != null" >
+        current_count = #{currentCount,jdbcType=INTEGER},
+      </if>
+      <if test="warningCount != null" >
+        warning_count = #{warningCount,jdbcType=INTEGER},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="propor != null" >
+        propor = #{propor,jdbcType=REAL},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.VendorTrackDeploy" >
+    update am_vendor_track_deploy
+    set deploy_id = #{deployId,jdbcType=INTEGER},
+      track_id = #{trackId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      threshold = #{threshold,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      current_count = #{currentCount,jdbcType=INTEGER},
+      warning_count = #{warningCount,jdbcType=INTEGER},
+      sale_price = #{salePrice,jdbcType=REAL},
+      status = #{status,jdbcType=INTEGER},
+      propor = #{propor,jdbcType=REAL},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from am_vendor_track_deploy where deleted = 0
+  </select>
+  <select id="selectChannelMessageByDepIdAndGoods" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from am_vendor_track_deploy where deploy_id = #{depId} and deleted = 0 and goods_id is not null
+  </select>
+  <delete id="deleteBytId" parameterType="java.lang.Integer">
+    delete from am_vendor_track_deploy
+    where track_id = #{tId,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByDepId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from am_vendor_track_deploy where deploy_id = #{depId} and deleted = 0
+  </select>
+  <select id="selectByPrice" resultMap="BaseResultMap">
+    select * from am_vendor_track_deploy where goods_id = #{goodsId} and deploy_id= #{depId} and deleted = 0 </select>
+
+  <select id="selectValidDeployGoods" parameterType="java.lang.Integer" resultType="com.runhang.sell.model.ValidDeployGoods">
+    SELECT
+      avtd.deploy_id AS deployId,
+      avtd.track_id AS trackId,
+      am_vendor_track.track_code AS trackCode,
+      avtd.goods_id AS goodsId,
+      avtd.total_count AS totalCount,
+      avtd.current_count AS currentCount,
+      avtd.sale_price / 10000 AS price,
+      avtd.warning_count AS warningCount,
+      ag.`name` AS goodsName,
+      cm_file.file_path AS goodsImage,
+      ag.description
+    FROM
+      am_vendor_track_deploy AS avtd
+      INNER JOIN am_goods AS ag ON avtd.goods_id = ag.id
+      LEFT OUTER JOIN cm_file ON ag.image_id = cm_file.id
+      INNER JOIN am_vendor_track ON avtd.track_id = am_vendor_track.id
+    WHERE
+      avtd.goods_id IS NOT NULL
+      <if test="deployId != null">
+        AND avtd.deploy_id = #{deployId}
+      </if>
+  </select>
+  <!--根据售货机部署id和货道编号查询货道部署信息-->
+  <resultMap id="ResultMap" type="com.runhang.sell.model.VendorTrackDeploy" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="deploy_id" property="deployId" jdbcType="INTEGER" />
+      <result column="track_id" property="trackId" jdbcType="INTEGER" />
+      <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+      <result column="threshold" property="threshold" jdbcType="INTEGER" />
+      <result column="business_id" property="businessId" jdbcType="INTEGER" />
+      <result column="total_count" property="totalCount" jdbcType="INTEGER" />
+      <result column="current_count" property="currentCount" jdbcType="INTEGER" />
+      <result column="warning_count" property="warningCount" jdbcType="INTEGER" />
+      <result column="sale_price" property="salePrice" jdbcType="REAL" />
+      <result column="status" property="status" jdbcType="INTEGER" />
+      <result column="propor" property="propor" jdbcType="REAL" />
+      <result column="description" property="description" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="deleted" property="deleted" jdbcType="INTEGER" />
+      <result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+      <result column="trackCode" property="trackCode" jdbcType="VARCHAR"/>
+      <result column="goodsUrl" property="goodsUrl" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List2" >
+    avtd.id, avtd.deploy_id, avtd.track_id, avtd.goods_id, avtd.threshold, avtd.business_id, avtd.total_count, avtd.current_count,
+    avtd.warning_count, avtd.sale_price, avtd.status, avtd.propor, avtd.description, avtd.create_time, avtd.update_time,
+    avtd.deleted
+  </sql>
+  <select id="selectByVdIdAndTrackCode" resultMap="ResultMap" >
+    select
+    <include refid="Base_Column_List2" />,ag.name as goodsName
+    from am_vendor_track_deploy avtd
+    left outer join am_goods ag on ag.id=avtd.goods_id and ag.deleted=0
+    where avtd.deleted = 0
+    <if test="vendorDeployId != null" >
+      and avtd.deploy_id = #{vendorDeployId,jdbcType=INTEGER}
+    </if>
+    <if test="vendorId != null and trackCode !=null" >
+        and avtd.track_id = (
+        select id from am_vendor_track where track_code = #{trackCode,jdbcType=VARCHAR} and vd_id = #{vendorId,jdbcType=INTEGER}
+        )
+    </if>
+
+  </select>
+  <select id="selectVdCodeByGoodsId" resultType="java.lang.String" parameterType="java.lang.Integer">
+    SELECT v.vd_code FROM `am_vendor_track_deploy` AS vtd JOIN am_vendor_deploy AS vd ON vtd.deploy_id = vd.id JOIN am_vendor as v ON vd.vd_id = v.id
+    WHERE vtd.deleted = 0 AND vtd.goods_id = #{goodsId} AND vd.`status` != 3 GROUP BY v.vd_code
+  </select>
+  <select id="selectTrackGoodsByPrimaryKey" resultType="com.runhang.sell.model.VendorTrackDeploy" parameterType="java.lang.Integer" >
+    select
+    avtd.goods_id as goodsId,
+    avtd.sale_price as salePrice,
+    cf.file_path as goodsUrl
+    from am_vendor_track_deploy avtd
+    left join am_goods ag on ag.id = avtd.goods_id and ag.deleted = 0
+    left join cm_file cf on cf.id = ag.image_id and cf.deleted = 0
+    where avtd.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectTrackGoodByDeployIdAndGoodsId" resultMap="ResultMap" >
+      select
+      <include refid="Base_Column_List2" />,
+      avt.track_code as trackCode,
+      ag.name as goodsName,
+      cf.file_path as goodsUrl
+      from am_vendor_track_deploy avtd
+      inner join am_vendor_track avt on avt.id = avtd.track_id and avt.deleted = 0
+      left join am_goods ag on ag.id = avtd.goods_id and ag.deleted = 0
+      left join cm_file cf on cf.id = ag.image_id and cf.deleted = 0
+      where avtd.deleted = 0
+      <if test="trackStatus != 0" >
+        and avtd.status != 0
+      </if>
+      <if test="trackStatus == 0" >
+        and avtd.status = 0
+      </if>
+      and avtd.deploy_id = #{deployId}
+      and avtd.goods_id = #{goodsId}
+  </select>
+  <select id="getGoodsIdsByVdId" resultType="java.lang.Integer">
+    SELECT avtd.goods_id FROM am_vendor_track_deploy as avtd
+    LEFT JOIN am_goods as ag ON avtd.goods_id = ag.id
+    LEFT JOIN am_goods_brand as agb ON ag.brand_id = agb.id and agb.deleted = 0
+    LEFT JOIN cm_enumeration as ce ON agb.class = ce.code and ce.type = 'GOODS_CLASS' and ce.deleted = 0
+    LEFT JOIN am_vendor_deploy as avd ON avtd.deploy_id = avd.id
+    where avtd.deleted = 0 and avtd.status = 0 and avtd.goods_id is not null and avd.deleted = 0
+    and avd.id = #{vdId}
+	and ce.description = #{goodsClass}
+    GROUP BY avtd.goods_id
+  </select>
+  <select id="getTrackGoodsInfo" resultType="map">
+    SELECT avtd.sale_price as goodsPrice,avtd.current_count as goodsQuantity FROM am_vendor_track_deploy as avtd
+    LEFT JOIN am_vendor_deploy as avd ON avtd.deploy_id = avd.id
+    where avtd.deleted = 0 and avtd.status = 0 and avtd.goods_id is not null and avd.deleted = 0
+    and avd.id = #{vdId} and avtd.goods_id = #{goodsId}
+    GROUP BY avtd.goods_id
+  </select>
+  <select id="getIdsByVdIdAndGoodsId" resultType="java.lang.Integer">
+    SELECT id FROM am_vendor_track_deploy where deleted = 0 and deploy_id = #{vdId} and goods_id = #{goodsId}
+  </select>
+  <select id="getGoodsClassByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT ce.description FROM am_vendor_track_deploy as avtd
+    LEFT JOIN am_goods as ag ON avtd.goods_id = ag.id
+    LEFT JOIN am_goods_brand as agb ON ag.brand_id = agb.id and agb.deleted = 0
+    LEFT JOIN cm_enumeration as ce ON agb.class = ce.code and ce.type = 'GOODS_CLASS' and ce.deleted = 0
+    LEFT JOIN am_vendor_deploy as avd ON avtd.deploy_id = avd.id
+    where avtd.deleted = 0 and avtd.status = 0 and avtd.goods_id is not null and avd.deleted = 0
+    and avd.id = #{vdId}
+    GROUP BY agb.class
+  </select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.GoodsQuantityAlarmRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.GoodsQuantityAlarmRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vd_id" property="vdId" jdbcType="INTEGER" />
+    <result column="rp_id" property="rpId" jdbcType="INTEGER" />
+    <result column="current_quantity" property="currentQuantity" jdbcType="INTEGER" />
+    <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, vd_id, rp_id, current_quantity, alarm_time, create_time, update_time, deleted
+  </sql>
+    <select id="vendorGoodCountsByVdId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        SELECT
+        COALESCE(sum(avtd.current_count),0) as vendorGoodCounts
+        FROM
+        am_vendor_track_deploy AS avtd
+        INNER JOIN am_vendor_track AS avt ON avtd.track_id = avt.id AND avt.deleted = 0
+        INNER JOIN am_vendor AS av ON avt.vd_id = av.id  AND av.deleted = 0
+        INNER JOIN am_vendor_deploy AS avd ON avtd.deploy_id = avd.id AND avd.deleted = 0  AND avd.id = avtd.deploy_id
+        WHERE
+        avtd.deleted = 0 AND
+        avtd.status = 0 AND
+        avtd.deploy_id = #{vendorDeployId}
+        <if test="trackCodeList!= null and trackCodeList.size()>0">
+            and avt.track_code not in
+            <foreach collection="trackCodeList" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+</mapper>

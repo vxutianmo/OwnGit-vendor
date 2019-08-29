@@ -1,0 +1,138 @@
+server:
+  port: 9069
+logging:
+  config: classpath:logback-spring.xml
+spring:
+  application:
+    name: sell-service
+  cloud:
+    config:
+      enabled: false
+  servlet:
+    multipart:
+      max-file-size: 500MB
+  datasource:
+    url: jdbc:mysql://192.168.0.83:3306/runhang_admin_main?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  rabbitmq:
+      host: 192.168.0.81
+      port: 1889
+      username: runhangAdmin
+      password: rhwl6789,,
+      ssl:
+        enabled: true
+        algorithm: TLSv1.2
+        keyStore: mqtt/keycert.p12
+        keyStorePassword: rhwl6789,
+        trustStore: mqtt/rabbitstore
+        trustStorePassword: rhwl6789
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    registry-fetch-interval-seconds: 20
+    eureka-server-connect-timeout-seconds: 5
+  cloud:
+    config:
+      enabled: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+  application:
+    name: sell-service
+  mail:
+    host: smtp.runhangtech.com
+    username: iotadmin@runhangtech.com
+    password: RHwl6789
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+mybatis:
+  config-location:
+    classpath:config/mybatis/mybatis-config.xml
+  mapper-locations:
+    - classpath:config/mybatis/mapper/component/*.xml
+    - classpath:config/mybatis/mapper/component/**/*.xml
+    - classpath*:mapper/**/*.xml
+  cache:
+    enabled: true
+    expireTimeInMinutes: 30 # 缓存失效时间
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+swagger:
+  path: com.runhang.sell.api
+
+#支付和分账接口地址
+interface:
+  accountBaseUrl: http://127.0.0.1:8099/
+  payBaseUrl: http://127.0.0.1:8095/
+
+#mqtt配置信息
+runhang:
+  mqtt:
+    host: 192.168.0.81
+    port: 1883
+    username: root
+    password: root
+
+management:
+  security:
+    enabled: false
+  server:
+    port: 9001
+
+
+jpush:
+  cloud:
+    appkey: a141489afcc5c401d7c65c7b
+    masterSecret: 0dbb3ee8825a3b990839e2e0
+  update:
+      appkey: e46ccaa7e596e3c24d8b982d
+      masterSecret: 748a7c7080248a2e05369942
+
+#获取环境及发送人
+sender:
+ interval: -1
+ senderList:
+  - "{'测试5':'88888888888'}"
+  - "{'测试6':'99999999999'}"
+
+dingdingSMS:
+ url: http://192.168.0.50:8088/admin/core/ding/sendMsg
+
+#福袋机大奖需要返回的两个参数
+awards:
+  url: http://runtest.runhangtech.com/swagger/wpIndex
+  openId:
+
+#福袋机的虚拟货道和大奖货道
+lucky:
+  virtualCargoLane:
+    "201,202,203,204"
+  grandPrizeCargoRoad:
+    "166,167,168"
+
+wechat:
+  miniapp:
+    order-dishes:
+      appid: wx33ca8fa29320601b
+      secret: 579346884e3e0264f5ad93180bc7037c
+      url: http://www.runhangtech.com/

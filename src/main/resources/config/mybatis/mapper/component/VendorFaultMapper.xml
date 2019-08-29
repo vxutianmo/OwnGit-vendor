@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runhang.sell.mapper.VendorFaultMapper">
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.VendorFault">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vd_id" jdbcType="INTEGER" property="vdId" />
+    <result column="operator" jdbcType="INTEGER" property="operator" />
+    <result column="fault_name" jdbcType="VARCHAR" property="faultName" />
+    <result column="fault_reason" jdbcType="VARCHAR" property="faultReason" />
+    <result column="trouble_shooting" jdbcType="VARCHAR" property="troubleShooting" />
+    <result column="fault_status" jdbcType="INTEGER" property="faultStatus" />
+    <result column="machine_state" jdbcType="VARCHAR" property="machineState" />
+    <result column="fault_photo" jdbcType="INTEGER" property="faultPhoto" />
+    <result column="fault_time" jdbcType="TIMESTAMP" property="faultTime" />
+    <result column="last_heartbeat_time" jdbcType="TIMESTAMP" property="lastHeartbeatTime" />
+    <result column="solve_time" jdbcType="TIMESTAMP" property="solveTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, vd_id, operator, fault_name, fault_reason, trouble_shooting, fault_status, machine_state, 
+    fault_photo, fault_time, last_heartbeat_time, solve_time, create_time, update_time, 
+    deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.runhang.sell.model.VendorFaultExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_vendor_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from am_vendor_fault
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from am_vendor_fault
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.VendorFaultExample">
+    delete from am_vendor_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.VendorFault" useGeneratedKeys="true" keyProperty="id">
+    insert into am_vendor_fault (id, vd_id, operator, 
+      fault_name, fault_reason, trouble_shooting, 
+      fault_status, machine_state, fault_photo, 
+      fault_time, last_heartbeat_time, solve_time, 
+      create_time, update_time, deleted
+      )
+    values (#{id,jdbcType=INTEGER}, #{vdId,jdbcType=INTEGER}, #{operator,jdbcType=INTEGER}, 
+      #{faultName,jdbcType=VARCHAR}, #{faultReason,jdbcType=VARCHAR}, #{troubleShooting,jdbcType=VARCHAR}, 
+      #{faultStatus,jdbcType=INTEGER}, #{machineState,jdbcType=VARCHAR}, #{faultPhoto,jdbcType=INTEGER}, 
+      #{faultTime,jdbcType=TIMESTAMP}, #{lastHeartbeatTime,jdbcType=TIMESTAMP}, #{solveTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.VendorFault" useGeneratedKeys="true" keyProperty="id">
+    insert into am_vendor_fault
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vdId != null">
+        vd_id,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="faultName != null">
+        fault_name,
+      </if>
+      <if test="faultReason != null">
+        fault_reason,
+      </if>
+      <if test="troubleShooting != null">
+        trouble_shooting,
+      </if>
+      <if test="faultStatus != null">
+        fault_status,
+      </if>
+      <if test="machineState != null">
+        machine_state,
+      </if>
+      <if test="faultPhoto != null">
+        fault_photo,
+      </if>
+      <if test="faultTime != null">
+        fault_time,
+      </if>
+      <if test="lastHeartbeatTime != null">
+        last_heartbeat_time,
+      </if>
+      <if test="solveTime != null">
+        solve_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vdId != null">
+        #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="faultName != null">
+        #{faultName,jdbcType=VARCHAR},
+      </if>
+      <if test="faultReason != null">
+        #{faultReason,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleShooting != null">
+        #{troubleShooting,jdbcType=VARCHAR},
+      </if>
+      <if test="faultStatus != null">
+        #{faultStatus,jdbcType=INTEGER},
+      </if>
+      <if test="machineState != null">
+        #{machineState,jdbcType=VARCHAR},
+      </if>
+      <if test="faultPhoto != null">
+        #{faultPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="faultTime != null">
+        #{faultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastHeartbeatTime != null">
+        #{lastHeartbeatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="solveTime != null">
+        #{solveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.VendorFaultExample" resultType="java.lang.Integer">
+    select count(*) from am_vendor_fault
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update am_vendor_fault
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdId != null">
+        vd_id = #{record.vdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=INTEGER},
+      </if>
+      <if test="record.faultName != null">
+        fault_name = #{record.faultName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faultReason != null">
+        fault_reason = #{record.faultReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.troubleShooting != null">
+        trouble_shooting = #{record.troubleShooting,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faultStatus != null">
+        fault_status = #{record.faultStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.machineState != null">
+        machine_state = #{record.machineState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faultPhoto != null">
+        fault_photo = #{record.faultPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="record.faultTime != null">
+        fault_time = #{record.faultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastHeartbeatTime != null">
+        last_heartbeat_time = #{record.lastHeartbeatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.solveTime != null">
+        solve_time = #{record.solveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update am_vendor_fault
+    set id = #{record.id,jdbcType=INTEGER},
+      vd_id = #{record.vdId,jdbcType=INTEGER},
+      operator = #{record.operator,jdbcType=INTEGER},
+      fault_name = #{record.faultName,jdbcType=VARCHAR},
+      fault_reason = #{record.faultReason,jdbcType=VARCHAR},
+      trouble_shooting = #{record.troubleShooting,jdbcType=VARCHAR},
+      fault_status = #{record.faultStatus,jdbcType=INTEGER},
+      machine_state = #{record.machineState,jdbcType=VARCHAR},
+      fault_photo = #{record.faultPhoto,jdbcType=INTEGER},
+      fault_time = #{record.faultTime,jdbcType=TIMESTAMP},
+      last_heartbeat_time = #{record.lastHeartbeatTime,jdbcType=TIMESTAMP},
+      solve_time = #{record.solveTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.VendorFault">
+    update am_vendor_fault
+    <set>
+      <if test="vdId != null">
+        vd_id = #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=INTEGER},
+      </if>
+      <if test="faultName != null">
+        fault_name = #{faultName,jdbcType=VARCHAR},
+      </if>
+      <if test="faultReason != null">
+        fault_reason = #{faultReason,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleShooting != null">
+        trouble_shooting = #{troubleShooting,jdbcType=VARCHAR},
+      </if>
+      <if test="faultStatus != null">
+        fault_status = #{faultStatus,jdbcType=INTEGER},
+      </if>
+      <if test="machineState != null">
+        machine_state = #{machineState,jdbcType=VARCHAR},
+      </if>
+      <if test="faultPhoto != null">
+        fault_photo = #{faultPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="faultTime != null">
+        fault_time = #{faultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastHeartbeatTime != null">
+        last_heartbeat_time = #{lastHeartbeatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="solveTime != null">
+        solve_time = #{solveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.VendorFault">
+    update am_vendor_fault
+    set vd_id = #{vdId,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=INTEGER},
+      fault_name = #{faultName,jdbcType=VARCHAR},
+      fault_reason = #{faultReason,jdbcType=VARCHAR},
+      trouble_shooting = #{troubleShooting,jdbcType=VARCHAR},
+      fault_status = #{faultStatus,jdbcType=INTEGER},
+      machine_state = #{machineState,jdbcType=VARCHAR},
+      fault_photo = #{faultPhoto,jdbcType=INTEGER},
+      fault_time = #{faultTime,jdbcType=TIMESTAMP},
+      last_heartbeat_time = #{lastHeartbeatTime,jdbcType=TIMESTAMP},
+      solve_time = #{solveTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

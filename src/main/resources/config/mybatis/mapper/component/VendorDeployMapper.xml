@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.VendorDeployMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.VendorDeploy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vd_id" property="vdId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="alarm_status" property="alarmStatus" jdbcType="INTEGER" />
+    <result column="series_id" property="seriesId" jdbcType="INTEGER" />
+    <result column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="temperature" property="temperature" jdbcType="INTEGER" />
+    <result column="power_on" property="powerOn" jdbcType="INTEGER" />
+    <result column="power_off" property="powerOff" jdbcType="INTEGER" />
+    <result column="supply_id" property="supplyId" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="push_id" property="pushId" jdbcType="VARCHAR" />
+    <result column="update_push_id" property="updatePushId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="vendor_name" property="vendorName" jdbcType="VARCHAR" />
+    <result column="alarm_value" property="alarmValue" jdbcType="INTEGER" />
+    <result column="limit_value" property="limitValue" jdbcType="INTEGER" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vd_id, status, alarm_status, series_id, region_id, address, temperature, power_on, 
+    power_off, supply_id, business_id, start_time, end_time, description, push_id, update_push_id, 
+    create_time, update_time, deleted, vendor_name, alarm_value, limit_value, longitude, 
+    latitude
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.runhang.sell.model.VendorDeployExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from am_vendor_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from am_vendor_deploy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_vendor_deploy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.runhang.sell.model.VendorDeployExample" >
+    delete from am_vendor_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.runhang.sell.model.VendorDeploy" useGeneratedKeys="true" keyProperty="id" >
+    insert into am_vendor_deploy (vd_id, status, alarm_status, 
+      series_id, region_id, address, 
+      temperature, power_on, power_off, 
+      supply_id, business_id, start_time, 
+      end_time, description, push_id, 
+      update_push_id, create_time, update_time, 
+      deleted, vendor_name, alarm_value, 
+      limit_value, longitude, latitude
+      )
+    values (#{vdId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{alarmStatus,jdbcType=INTEGER}, 
+      #{seriesId,jdbcType=INTEGER}, #{regionId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{temperature,jdbcType=INTEGER}, #{powerOn,jdbcType=INTEGER}, #{powerOff,jdbcType=INTEGER}, 
+      #{supplyId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE}, #{description,jdbcType=VARCHAR}, #{pushId,jdbcType=VARCHAR}, 
+      #{updatePushId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{alarmValue,jdbcType=INTEGER}, 
+      #{limitValue,jdbcType=INTEGER}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.runhang.sell.model.VendorDeploy" useGeneratedKeys="true" keyProperty="id" >
+    insert into am_vendor_deploy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vdId != null" >
+        vd_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="alarmStatus != null" >
+        alarm_status,
+      </if>
+      <if test="seriesId != null" >
+        series_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="temperature != null" >
+        temperature,
+      </if>
+      <if test="powerOn != null" >
+        power_on,
+      </if>
+      <if test="powerOff != null" >
+        power_off,
+      </if>
+      <if test="supplyId != null" >
+        supply_id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="pushId != null" >
+        push_id,
+      </if>
+      <if test="updatePushId != null" >
+        update_push_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="vendorName != null" >
+        vendor_name,
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value,
+      </if>
+      <if test="limitValue != null" >
+        limit_value,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vdId != null" >
+        #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="alarmStatus != null" >
+        #{alarmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null" >
+        #{seriesId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null" >
+        #{temperature,jdbcType=INTEGER},
+      </if>
+      <if test="powerOn != null" >
+        #{powerOn,jdbcType=INTEGER},
+      </if>
+      <if test="powerOff != null" >
+        #{powerOff,jdbcType=INTEGER},
+      </if>
+      <if test="supplyId != null" >
+        #{supplyId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pushId != null" >
+        #{pushId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatePushId != null" >
+        #{updatePushId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="vendorName != null" >
+        #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        #{alarmValue,jdbcType=INTEGER},
+      </if>
+      <if test="limitValue != null" >
+        #{limitValue,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.runhang.sell.model.VendorDeployExample" resultType="java.lang.Integer" >
+    select count(*) from am_vendor_deploy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_vendor_deploy
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vdId != null" >
+        vd_id = #{record.vdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmStatus != null" >
+        alarm_status = #{record.alarmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesId != null" >
+        series_id = #{record.seriesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionId != null" >
+        region_id = #{record.regionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.temperature != null" >
+        temperature = #{record.temperature,jdbcType=INTEGER},
+      </if>
+      <if test="record.powerOn != null" >
+        power_on = #{record.powerOn,jdbcType=INTEGER},
+      </if>
+      <if test="record.powerOff != null" >
+        power_off = #{record.powerOff,jdbcType=INTEGER},
+      </if>
+      <if test="record.supplyId != null" >
+        supply_id = #{record.supplyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=DATE},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=DATE},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pushId != null" >
+        push_id = #{record.pushId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatePushId != null" >
+        update_push_id = #{record.updatePushId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.vendorName != null" >
+        vendor_name = #{record.vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alarmValue != null" >
+        alarm_value = #{record.alarmValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.limitValue != null" >
+        limit_value = #{record.limitValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_vendor_deploy
+    set id = #{record.id,jdbcType=INTEGER},
+      vd_id = #{record.vdId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      alarm_status = #{record.alarmStatus,jdbcType=INTEGER},
+      series_id = #{record.seriesId,jdbcType=INTEGER},
+      region_id = #{record.regionId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      temperature = #{record.temperature,jdbcType=INTEGER},
+      power_on = #{record.powerOn,jdbcType=INTEGER},
+      power_off = #{record.powerOff,jdbcType=INTEGER},
+      supply_id = #{record.supplyId,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=DATE},
+      end_time = #{record.endTime,jdbcType=DATE},
+      description = #{record.description,jdbcType=VARCHAR},
+      push_id = #{record.pushId,jdbcType=VARCHAR},
+      update_push_id = #{record.updatePushId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      vendor_name = #{record.vendorName,jdbcType=VARCHAR},
+      alarm_value = #{record.alarmValue,jdbcType=INTEGER},
+      limit_value = #{record.limitValue,jdbcType=INTEGER},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.runhang.sell.model.VendorDeploy" >
+    update am_vendor_deploy
+    <set >
+      <if test="vdId != null" >
+        vd_id = #{vdId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="alarmStatus != null" >
+        alarm_status = #{alarmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null" >
+        series_id = #{seriesId,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null" >
+        region_id = #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null" >
+        temperature = #{temperature,jdbcType=INTEGER},
+      </if>
+      <if test="powerOn != null" >
+        power_on = #{powerOn,jdbcType=INTEGER},
+      </if>
+      <if test="powerOff != null" >
+        power_off = #{powerOff,jdbcType=INTEGER},
+      </if>
+      <if test="supplyId != null" >
+        supply_id = #{supplyId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pushId != null" >
+        push_id = #{pushId,jdbcType=VARCHAR},
+      </if>
+      <if test="updatePushId != null" >
+        update_push_id = #{updatePushId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="vendorName != null" >
+        vendor_name = #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value = #{alarmValue,jdbcType=INTEGER},
+      </if>
+      <if test="limitValue != null" >
+        limit_value = #{limitValue,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.runhang.sell.model.VendorDeploy" >
+    update am_vendor_deploy
+    set vd_id = #{vdId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      alarm_status = #{alarmStatus,jdbcType=INTEGER},
+      series_id = #{seriesId,jdbcType=INTEGER},
+      region_id = #{regionId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      temperature = #{temperature,jdbcType=INTEGER},
+      power_on = #{powerOn,jdbcType=INTEGER},
+      power_off = #{powerOff,jdbcType=INTEGER},
+      supply_id = #{supplyId,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      description = #{description,jdbcType=VARCHAR},
+      push_id = #{pushId,jdbcType=VARCHAR},
+      update_push_id = #{updatePushId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      vendor_name = #{vendorName,jdbcType=VARCHAR},
+      alarm_value = #{alarmValue,jdbcType=INTEGER},
+      limit_value = #{limitValue,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getIdByVdId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select id from am_vendor_deploy where vd_id = #{vdId} and deleted = 0 and status != 3
+  </select>
+  <select id="getPushIdByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select push_id from am_vendor_deploy where vd_id = #{vdId} and deleted = 0 and status != 3
+  </select>
+  <select id="getPushIdAll" resultType="java.lang.String">
+    select push_id from am_vendor_deploy where deleted = 0 and status != 3
+  </select>
+  <select id="getvIdByVdId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select vd_id from am_vendor_deploy where id = #{vdId} and deleted = 0
+  </select>
+  <select id="getUpdatePushIdByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select update_push_id from am_vendor_deploy where vd_id = #{vdId} and deleted = 0 and status != 3
+  </select>
+  <select id="getBusin" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select business_id from am_vendor_deploy where id = #{vdId} and deleted = 0
+  </select>
+
+  <select id="selectBasicInfoById" parameterType="java.lang.Integer" resultType="com.runhang.sell.model.OrderDishesGoods">
+    SELECT
+    avd.id as deployId,
+    avd.`status`,
+    avd.business_id AS businessId,
+    avd.vendor_name AS vendorName,
+    av.vd_code AS vendorCode,
+    cf.file_path as advert,
+    CONCAT(
+    ar.province,
+    ar.city,
+    ar.area,
+    ar.region_name,
+    avd.address
+    ) AS address
+    FROM
+    am_vendor_deploy AS avd
+    INNER JOIN am_region AS ar ON avd.region_id = ar.id AND ar.deleted = 0
+    INNER JOIN am_vendor AS av ON avd.vd_id = av.id AND av.deleted = 0
+    LEFT JOIN cm_file AS cf ON av.photo = cf.id
+    WHERE
+    avd.deleted = 0
+    AND avd.`status` != 3
+    <if test="deployId != null">
+      AND  avd.id = #{deployId}
+    </if>
+  </select>
+
+  <select id="fetchDeployByVdCode" parameterType="java.lang.String" resultType="com.runhang.sell.model.VendorDeploy">
+    SELECT
+vd.*
+FROM am_vendor_deploy vd
+INNER JOIN am_vendor v ON vd.`vd_id` = v.`id`
+WHERE v.`vd_code` = #{venCode} AND vd.`status` !=3
+  </select>
+  <select id="getBusIdByVdCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT vd.business_id FROM am_vendor_deploy as vd
+    INNER JOIN am_vendor as ven ON vd.vd_id = ven.id
+    where ven.vd_code = #{vdCode} AND vd.status != 3
+  </select>
+  <select id="getVdInfoByVdId" parameterType="java.lang.Integer" resultType="map">
+    SELECT avd.id as vdId, avd.vendor_name AS vdName, av.vd_code AS vdCode,
+      CONCAT(
+              ar.province,
+              ar.city,
+              ar.area,
+              ar.region_name,
+              avd.address
+      ) AS vdPoint
+    FROM am_vendor_deploy AS avd
+    INNER JOIN am_region AS ar ON avd.region_id = ar.id AND ar.deleted = 0
+    INNER JOIN am_vendor AS av ON avd.vd_id = av.id AND av.deleted = 0
+	where avd.deleted = 0 and av.deleted = 0 and avd.id = #{vdId}
+  </select>
+  <select id="getIdByVdCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT avd.id from am_vendor_deploy as avd
+    LEFT JOIN am_vendor as av ON avd.vd_id = av.id
+    where avd.deleted = 0 and avd.status != 3
+    and av.vd_code = #{vdCode}
+  </select>
+  <select id="getVdNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT vendor_name FROM am_vendor_deploy where deleted = 0 and id = #{id}
+  </select>
+  <select id="getVdCodeByVdId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT av.vd_code FROM am_vendor_deploy as avd
+    LEFT JOIN am_vendor as av ON avd.vd_id = av.id
+    where avd.deleted = 0 and avd.id = #{vdId}
+  </select>
+  <select id="getLongitudeById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT longitude FROM am_vendor_deploy where deleted = 0 and id = #{id}
+  </select>
+  <select id="getLatitudeById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    SELECT latitude FROM am_vendor_deploy where deleted = 0 and id = #{id}
+  </select>
+</mapper>

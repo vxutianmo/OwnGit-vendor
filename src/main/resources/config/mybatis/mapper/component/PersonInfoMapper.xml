@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runhang.sell.mapper.PersonInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.runhang.sell.model.PersonInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cert_type" property="certType" jdbcType="VARCHAR" />
+    <result column="cert_num" property="certNum" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="cell_phone" property="cellPhone" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="bus_id" property="busId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.runhang.sell.model.PersonInfo" extends="BaseResultMap" >
+    <result column="portrait" property="portrait" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, cert_type, cert_num, type, address, cell_phone, phone, qq, wechat, email, 
+    bus_id, user_id, create_time, update_time, deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    portrait
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_person_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getReplenisherById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        per.id,
+        per.name,
+        per.cert_type,
+        per.cert_num,
+        per.type,
+        per.address,
+        per.cell_phone,
+        per.phone,
+        per.qq,
+        per.wechat,
+        per.email,
+        per.bus_id,
+        per.user_id
+        FROM am_replenisher rep
+        INNER JOIN am_person_info per ON rep.info_id = per.id AND rep.deleted = 0
+        WHERE rep.deleted = 0 AND rep.id = #{replenisherId}
+    </select>
+</mapper>
